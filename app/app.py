@@ -1,9 +1,9 @@
 # Thx https://medium.com/fintechexplained/flask-host-your-python-machine-learning-model-on-web-b598151886d
+# Make sure VM is activated - bash workon my-virtualenv (https://help.pythonanywhere.com/pages/Flask/)
 
 from flask import Flask, render_template, request
 import re
 import nltk
-import string
 import pickle
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -13,7 +13,7 @@ originallabels = {0: '@barackobama', 1: '@calvinstowell', 2: '@kimkardashian'}
 # Customize stopwords, punctuation
 stopwords = nltk.corpus.stopwords.words('english')
 stopwords.extend(['wouldnt', 'wont', 'werent', 'wasnt', 'shouldnt', 'neednt', 'isnt', 'havent', 'hasnt', 'hadnt', 'ive','doesnt', 'didnt', 'couldnt', 'arent', 'aint', 'amp'])
-punctuation = string.punctuation + '’' + '–' + '“' + '”'
+punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~’–“”'
 
 # Text Processing
 def textonly(text):
@@ -30,10 +30,15 @@ def textonly(text):
 # Feature Extraction
 # Retrain Count Vectorizer model
 wordfeats = pickle.load(open('wordfeats.pkl', 'rb'))
+#wordfeats = pickle.load(open('/home/campkels/mysite/app/wordfeats.pkl', 'rb'))
 bow_transformer = CountVectorizer(analyzer=textonly).fit(wordfeats)
 
+# load the model
+model = pickle.load(open('finalized_model.pkl','rb'))
+#model = pickle.load(open('/home/campkels/mysite/app/finalized_model.pkl','rb')) 
+
 # Flask
-app = Flask('author_predict')
+app = Flask(__name__)
 
 @app.route('/')
 def show_predict_stock_form():
@@ -42,8 +47,6 @@ def show_predict_stock_form():
 def results():
     form = request.form
     if request.method == 'POST':
-      # load the model
-      model = pickle.load(open('finalized_model.pkl','rb')) 
       # Get input
       rawtext = request.form['tweet']
       # Transform raw input for model
@@ -54,4 +57,5 @@ def results():
       print(predicted)
       return render_template('resultsform.html', text=rawtext,   predicted_author=predicted_label)
 
+# Comment this out when deploy
 app.run(port=5000, debug=True)
