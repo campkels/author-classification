@@ -7,5 +7,11 @@
 <!--       <form action = "http://campkels.pythonanywhere.com/result" method = "POST"> -->
          <p>Tweet <input type = "text" name = "tweet" /></p>
       </form>
+
+      <form action="/handleUpload" method="post" enctype="multipart/form-data">
+      		Choose the file: <input type="file" name="csv"/><BR>
+            <input type="submit" value="Upload"/>
+      </form> 
+
    </body>
 </html>
