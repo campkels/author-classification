@@ -11,6 +11,20 @@ from sklearn.feature_extraction.text import CountVectorizer
 # For Display
 originallabels = {0: '@barackobama', 1: '@calvinstowell', 2: '@kimkardashian'}
 
+def howsure(probests, prediction):
+    '''Defines logic to translate class probability estimates to sureness gif'''
+    predclass = prediction
+    probpred = probests[0][prediction]
+    otherprobs = float(sum(probests[0]) - probpred)
+    # Not sure
+    if probpred < .7:
+        return "not sure though."
+    # Very sure
+    elif probpred > .9 and otherprobs < .1:
+        return "very sure!"
+    else:
+        return "kinda sure."
+
 # Customize stopwords, punctuation
 stopwords = nltk.corpus.stopwords.words('english')
 stopwords.extend(['wouldnt', 'wont', 'werent', 'wasnt', 'shouldnt', 'neednt', 'isnt', 'havent', 'hasnt', 'hadnt', 'ive','doesnt', 'didnt', 'couldnt', 'arent', 'aint', 'amp'])
@@ -56,7 +70,12 @@ def results():
       predicted = model.predict(modelinput)
       predicted_label = originallabels[predicted[0]]
       print(predicted)
-      return render_template('resultsform.html', text=rawtext,   predicted_author=predicted_label)
+      # Get Sureness
+      probests = model.predict_proba(modelinput)
+      sureness = howsure(probests, predicted)
+
+      return render_template('resultsform.html', text=rawtext, predicted_author=predicted_label, sureness=sureness)
+
 
 @app.route("/handleUpload", methods=['POST'])
 def handleFileUpload():

@@ -1,17 +1,68 @@
 <html>
  <head>
  <title>New Tweet, Who Dis?</title>
+ 
+ <style>
+
+	body {
+  	font-family: Helvetica, Arial, Sans-Serif;
+	}
+
+	h2 {  	
+	color: #FE066B;
+	margin-top: 25px;
+	}
+
+	h4 {  	
+	color: #FE066B;
+	}
+
+	.button{
+    height:25px;
+    width:100px;
+	}
+
+	a:link {
+  	color: #2c75be;
+  	text-decoration: none; 
+	}
+
+	a:visited {
+	  color: #2c75be;
+	  text-decoration: none;
+	}
+
+	a:hover {
+	  color: #FE066B;
+	  text-decoration: none;
+	}
+	
+	a:active {
+	  color: #2c75be;
+	  text-decoration: none;
+	}
+
+ </style>
  </head>
+   
    <body>
+      <h2>CALBAMADASHIAN!</h2>
+      <p>The premier way to classify your <a href="https://twitter.com/calvinstowell">@calvinstowell</a>, <a href="https://twitter.com/BarackObama">@barackobama</a>, and <a href="https://twitter.com/kimkardashian">@kimkardashian</a> tweets since 2019!</p>
+
+      <h4>Predict a Single Post</h4>
       <form action = "http://localhost:5000/result" method = "POST">
 <!--       <form action = "http://campkels.pythonanywhere.com/result" method = "POST"> -->
-         <p>Tweet <input type = "text" name = "tweet" /></p>
+         <p>Enter Tweet <input type = "text" name = "tweet"  size="60"/></p>
+         <input type="submit" value="Who Dis?" class = "button"/>
       </form>
 
+      <h4>Test a New Batch</h4>
       <form action="/handleUpload" method="post" enctype="multipart/form-data">
-      		Choose the file: <input type="file" name="csv"/><BR>
-            <input type="submit" value="Upload"/>
-      </form> 
+      		<p>Choose file (.csv in same format): <input type="file" name="csv"/></p>
+            <input type="submit" value="Score!"  class = "button"/>
+      </form>
+
+      <p><a href="https://github.com/campkels/author-classification/wiki/Model-Info">Model Info</a> • <a href="https://github.com/campkels/author-classification">Code</a></p>
 
    </body>
 </html>

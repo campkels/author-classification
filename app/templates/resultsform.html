@@ -1,14 +1,62 @@
 <!doctype html>
 <html>
- <head>
- <title>New Tweet, Who Dis?</title>
- </head>
- <body>
- <h3>Raw Tweet:</h3>
- <div>{{ text }}</div>
+<head>
+<title>New Tweet, Who Dis?</title>
  
- <h3>Prediction:</h3>
- <div>Predicted author is: <strong>{{ predicted_author }}</strong>!</div>
+ <style>
+
+	body {
+  	font-family: Helvetica, Arial, Sans-Serif;
+	}
+
+	h2 {  	
+	color: #FE066B;
+	margin-top: 25px;
+	}
+
+	h4 {  	
+	color: #FE066B;
+	}
+
+	.button{
+    height:25px;
+    width:100px;
+	}
+
+	a:link {
+  	color: #2c75be;
+  	text-decoration: none; 
+	}
+
+	a:visited {
+	  color: #2c75be;
+	  text-decoration: none;
+	}
+
+	a:hover {
+	  color: #FE066B;
+	  text-decoration: none;
+	}
+	
+	a:active {
+	  color: #2c75be;
+	  text-decoration: none;
+	}
+
+ </style>
+ </head>
+ 
+ <body>
+ 	<h2>CALBAMADASHIAN!</h2>
+ 	<p>The premier way to classify your <a href="https://twitter.com/calvinstowell">@calvinstowell</a>, <a href="https://twitter.com/BarackObama">@barackobama</a>, and <a href="https://twitter.com/kimkardashian">@kimkardashian</a> tweets since 2019!</p>
+
+ 	<h4>Submitted Tweet:</h4>
+ 	<div>{{ text }}</div>
+ 
+ 	<h4>Prediction:</h4>
+ 	<div>Predicted author is <strong>{{ predicted_author }}</strong>!</div>
+ 	<div>Model is <strong>{{ sureness }}</strong></div>
+ 
  </div>
  </div>
  </body>
