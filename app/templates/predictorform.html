@@ -1,19 +1,19 @@
 <html>
  <head>
  <title>New Tweet, Who Dis?</title>
- 
+
  <style>
 
 	body {
   	font-family: Helvetica, Arial, Sans-Serif;
 	}
 
-	h2 {  	
+	h2 {
 	color: #FE066B;
-	margin-top: 25px;
+	margin-top: 0px;
 	}
 
-	h4 {  	
+	h4 {
 	color: #FE066B;
 	}
 
@@ -24,7 +24,7 @@
 
 	a:link {
   	color: #2c75be;
-  	text-decoration: none; 
+  	text-decoration: none;
 	}
 
 	a:visited {
@@ -36,7 +36,7 @@
 	  color: #FE066B;
 	  text-decoration: none;
 	}
-	
+
 	a:active {
 	  color: #2c75be;
 	  text-decoration: none;
@@ -44,20 +44,21 @@
 
  </style>
  </head>
-   
+
    <body>
+      <img src="{{url_for('static', filename='header.png')}}" alt="Beautiful header" width="225">
       <h2>CALBAMADASHIAN!</h2>
       <p>The premier way to classify your <a href="https://twitter.com/calvinstowell">@calvinstowell</a>, <a href="https://twitter.com/BarackObama">@barackobama</a>, and <a href="https://twitter.com/kimkardashian">@kimkardashian</a> tweets since 2019!</p>
 
-      <h4>Predict a Single Post</h4>
-      <form action = "http://localhost:5000/result" method = "POST">
-<!--       <form action = "http://campkels.pythonanywhere.com/result" method = "POST"> -->
+      <h4>Predict Author for Single Post</h4>
+      <!--<form action = "http://localhost:5000/result" method = "POST">-->
+      <form action = "http://campkels.pythonanywhere.com/result" method = "POST">
          <p>Enter Tweet <input type = "text" name = "tweet"  size="60"/></p>
          <input type="submit" value="Who Dis?" class = "button"/>
       </form>
 
-      <h4>Test a New Batch</h4>
-      <form action="http://localhost:5000/batchresult" method="post" enctype="multipart/form-data">
+      <h4>Test a New Batch <img src="{{url_for('static', filename='coming-soon.png')}}" alt="Coming Soon!" width="50"></h4>
+      <form action="http://campkels.pythonanywhere.com/batchresult" method="post" enctype="multipart/form-data">
       		<p>Choose file (.csv in same format): <input type="file" name="csv"/></p>
             <input type="submit" value="Score!"  class = "button"/>
       </form>

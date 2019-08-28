@@ -1,4 +1,3 @@
-
 #-------------------------------------------------------------------------------------------
 #
 # Tweet Author Classification Tool
@@ -9,7 +8,6 @@
 #-------------------------------------------------------------------------------------------
 
 from flask import Flask, render_template, request, url_for, redirect
-#import os
 import re
 import nltk
 import pickle
@@ -23,14 +21,13 @@ originallabels = {0: '@barackobama', 1: '@calvinstowell', 2: '@kimkardashian'}
 
 def howsure(probests, prediction):
     '''Defines logic to translate class probability estimates to sureness gif'''
-    predclass = prediction
     probpred = probests[0][prediction]
     otherprobs = float(sum(probests[0]) - probpred)
     # Not sure
     if probpred < .7:
         return "not sure though."
     # Very sure
-    elif probpred > .9 and otherprobs < .1:
+    elif probpred > .95 and otherprobs < .1:
         return "very sure!"
     else:
         return "kinda sure."
@@ -71,13 +68,11 @@ def textonly(text):
 
 # Feature Extraction
 # Retrain Count Vectorizer model
-wordfeats = pickle.load(open('wordfeats.pkl', 'rb'))
-#wordfeats = pickle.load(open('/home/campkels/mysite/app/wordfeats.pkl', 'rb'))
+wordfeats = pickle.load(open('/home/campkels/mysite/app/wordfeats.pkl', 'rb'))
 bow_transformer = CountVectorizer(analyzer=textonly).fit(wordfeats)
 
 # load the model
-model = pickle.load(open('finalized_model.pkl','rb'))
-#model = pickle.load(open('/home/campkels/mysite/app/finalized_model.pkl','rb')) 
+model = pickle.load(open('/home/campkels/mysite/app/finalized_model.pkl','rb'))
 
 #-------------------------------------------------------------------------------------------
 # Flask
@@ -105,16 +100,14 @@ def results():
       probests = model.predict_proba(modelinput)
       sureness = howsure(probests, predicted)
       suregif = surestatic(sureness)
-      return render_template('resultsform.html', text=rawtext, predicted_author=predicted_label, sureness=sureness, suregif=suregif)
 
+      return render_template('resultsform.html', text=rawtext, predicted_author=predicted_label, sureness=sureness, suregif=suregif)
 
 @app.route("/batchresult", methods=['POST'])
 def handleFileUpload():
-	  # if 'csv' in request.files:
-	 	# csv = request.files['csv']
-	 	# if csv.filename != '':
-	 	#  csv.save(os.path.join('C:/Users/Kelsey/Desktop/jobs/TheTrevorProject/Project/app/uploads', csv.filename))
+    #Implement!
     return render_template('batchresultsform.html')
 
-# Comment this out when deploy
-app.run(port=5000, debug=True)
+#app.run(port=5000, debug=True)
+# if __name__ == '__main__':
+#     app.run()
